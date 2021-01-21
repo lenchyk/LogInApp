@@ -10,7 +10,7 @@ import SwiftKeychainWrapper
 
 class LogOutViewController: UIViewController {
 
-    @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet var logOutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

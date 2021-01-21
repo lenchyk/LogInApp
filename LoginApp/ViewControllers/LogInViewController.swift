@@ -54,8 +54,8 @@ class LogInViewController: UIViewController {
     }
     
     private func transitionToSettings() {
-        let settingsViewController = storyboard?.instantiateViewController(identifier: "LogOutViewController") as? LogOutViewController
-        view.window?.rootViewController = settingsViewController
+        let menuViewController = storyboard?.instantiateViewController(identifier: "TabBarController")
+        view.window?.rootViewController = menuViewController
         view.window?.makeKeyAndVisible()
     }
     
