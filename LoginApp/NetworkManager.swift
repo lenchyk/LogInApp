@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 
 class NetworkManager {
+    
     enum AuthConstants {
         enum MockCredentials {
             //static let email = "junior-ios-developer@mailinator.com"
@@ -19,19 +20,20 @@ class NetworkManager {
             static let email = "email"
             static let password = "password"
             static let projectId = "project_id"
-            static let url = "https://api-qa.mvpnow.io/v1/sessions"
         }
+        static let url = "https://api-qa.mvpnow.io/v1/sessions"
     }
     
-    func login(email: String, password: String, completion: @escaping (_ result: NSDictionary?, _ error: Error?) -> Void) {
+    func login(email: String, password: String, completion: @escaping (_ result: String?, _ error: Error?) -> Void) {
         let parameters: Parameters = [AuthConstants.RequestParameters.email: email, AuthConstants.RequestParameters.password: password, AuthConstants.RequestParameters.projectId: AuthConstants.MockCredentials.projectId]
-        AF.request(AuthConstants.RequestParameters.url, method: .post, parameters: parameters).response {
+        AF.request(AuthConstants.url, method: .post, parameters: parameters).response {
             response in
             switch response.result {
             case .success(let data):
                 let json = try! JSONSerialization.jsonObject(with: data!,
                                                              options: []) as? NSDictionary
-                completion(json, nil) 
+                let token = json?.object(forKey: "access_token") as? String
+                completion(token, nil)
             case .failure(let error):
                 completion(nil, error)
             }

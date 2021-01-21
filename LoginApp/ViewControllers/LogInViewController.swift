@@ -80,7 +80,7 @@ class LogInViewController: UIViewController {
             NetworkManager().login(email: email, password: password, completion: { result, error in
                 if (result != nil) {
                     // if the key is saved -> navigating to TabBar
-                    if KeychainManager().saveAccessToken(result?.object(forKey: "access_token") as! String){
+                    if KeychainManager().saveAccessToken(result!){
                         self.navigate()
                     }
                 }
