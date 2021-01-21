@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,8 @@
 		BC70DF8B25B82E4C009B0216 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC70DF8925B82E4C009B0216 /* LaunchScreen.storyboard */; };
 		BC70DF9525B8421A009B0216 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC70DF9425B8421A009B0216 /* LogInViewController.swift */; };
 		BC70DF9825B8423F009B0216 /* LogOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC70DF9725B8423F009B0216 /* LogOutViewController.swift */; };
+		BC7BC5C725BA0525006B6280 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7BC5C625BA0525006B6280 /* NetworkManager.swift */; };
+		BC7BC5CC25BA306E006B6280 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7BC5CB25BA306E006B6280 /* KeychainManager.swift */; };
 		D5B53DE7ABA8F9532AF3732C /* Pods_LoginApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A941D61E8088DD64F636D9B7 /* Pods_LoginApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 		BC70DF8C25B82E4C009B0216 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC70DF9425B8421A009B0216 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		BC70DF9725B8423F009B0216 /* LogOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutViewController.swift; sourceTree = "<group>"; };
+		BC7BC5C625BA0525006B6280 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		BC7BC5CB25BA306E006B6280 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +62,6 @@
 				2A834747CC8213E74A8FF354 /* Pods-LoginApp.debug.xcconfig */,
 				B818A591BF5F970000DB1C46 /* Pods-LoginApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -86,6 +89,8 @@
 				BC70DF9325B841F1009B0216 /* ViewControllers */,
 				BC70DF7E25B82E46009B0216 /* AppDelegate.swift */,
 				BC70DF8025B82E46009B0216 /* SceneDelegate.swift */,
+				BC7BC5C625BA0525006B6280 /* NetworkManager.swift */,
+				BC7BC5CB25BA306E006B6280 /* KeychainManager.swift */,
 				BC70DF8425B82E46009B0216 /* Main.storyboard */,
 				BC70DF8725B82E4C009B0216 /* Assets.xcassets */,
 				BC70DF8925B82E4C009B0216 /* LaunchScreen.storyboard */,
@@ -218,7 +223,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC70DF7F25B82E46009B0216 /* AppDelegate.swift in Sources */,
+				BC7BC5CC25BA306E006B6280 /* KeychainManager.swift in Sources */,
 				BC70DF8125B82E46009B0216 /* SceneDelegate.swift in Sources */,
+				BC7BC5C725BA0525006B6280 /* NetworkManager.swift in Sources */,
 				BC70DF9825B8423F009B0216 /* LogOutViewController.swift in Sources */,
 				BC70DF9525B8421A009B0216 /* LogInViewController.swift in Sources */,
 			);

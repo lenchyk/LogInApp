@@ -11,7 +11,6 @@ import SwiftKeychainWrapper
 
 
 class LogInViewController: UIViewController {
-    //correct user information for comfort
     private enum Constants {
         enum MockCredentials {
             static let email = "junior-ios-developer@mailinator.com"
@@ -27,6 +26,7 @@ class LogInViewController: UIViewController {
         enum Errors {
             static let emptyTextField = "Please, fill all the fields."
             static let unsecurePassword = "Please, create a good password"
+            static let networkRequestFailed = "Something went wrong"
         }
     }
     
@@ -66,16 +66,15 @@ class LogInViewController: UIViewController {
         return passwordTest.evaluate(with: password)
     }
     
-    private func transitionToSettings() {
+    private func navigate() {
         let menuViewController = storyboard?.instantiateViewController(identifier: "TabBarController")
         view.window?.rootViewController = menuViewController
         view.window?.makeKeyAndVisible()
     }
-    
+        
     @IBAction func signInTapped(_ sender: Any) {
         emailTextField.text = Constants.MockCredentials.email
         passwordTextField.text = Constants.MockCredentials.password
-        let projectId = Constants.MockCredentials.projectId
         
         //validate all the fields
         let isValidAllFields = validateFields()
@@ -86,26 +85,24 @@ class LogInViewController: UIViewController {
         else {
             let user = emailTextField.text!
             let password = passwordTextField.text!
+            let projectId = Constants.MockCredentials.projectId // where should I get this ID?
        
             let parameters: Parameters = [Constants.RequestParameters.email: user, Constants.RequestParameters.password: password, Constants.RequestParameters.projectId: projectId]
+            
+            
             // login session
-            AF.request(Constants.RequestParameters.url, method: .post, parameters: parameters).response {
-                response in
-                switch response.result {
-                case .success(let data):
-                    self.transitionToSettings()
-                    let json = try! JSONSerialization.jsonObject(with: data!,
-                                                                 options: []) as? NSDictionary
-                    // saving the token to keychain
-                    let saveSuccessful: Bool = KeychainWrapper.standard.set((json?.object(forKey: "access_token")
-                                                                                as? String)!, forKey: "access_token")
-                    print("saved successfully - \(saveSuccessful)")
-                case .failure(let error):
-                    print(error)
-                    self.errorMessage.text = "Something went wrong"
+            NetworkManager().login(url: Constants.RequestParameters.url, credentials: parameters, completion: { result, error in
+                if (result != nil) {
+                    // if the key is saved -> navigating to TabBar
+                    if KeychainManager().saveKey(json: result) {
+                        self.navigate()
+                    }
+                }
+                else {
+                    self.errorMessage.text = Constants.Errors.networkRequestFailed
                     self.errorMessage.isHidden = false
                 }
-            }
+            })
         }
     }
 }

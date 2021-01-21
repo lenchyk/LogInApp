@@ -23,10 +23,10 @@ class LogOutViewController: UIViewController {
     }
 
     @IBAction func logOutTapped(_ sender: Any) {
-        // deleting the key - access_token
-        let removeSuccessful: Bool = KeychainWrapper.standard.remove(key: "access_token")
-        print("removed successfully - \(removeSuccessful)")
+        // deleting the key - access_token and
         // going back to login screen
-        goBack()
+        if KeychainManager().removeKey(keyNameSaved: "access_token") {
+            goBack()
+        }
     }
 }
