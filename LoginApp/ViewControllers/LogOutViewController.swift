@@ -25,7 +25,7 @@ class LogOutViewController: UIViewController {
     @IBAction func logOutTapped(_ sender: Any) {
         // deleting the key - access_token and
         // going back to login screen
-        if KeychainManager().removeKey(keyNameSaved: "access_token") {
+        if KeychainManager().removeAccessToken() {
             goBack()
         }
     }

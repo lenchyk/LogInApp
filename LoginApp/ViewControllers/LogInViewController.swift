@@ -6,23 +6,10 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftKeychainWrapper
 
 
 class LogInViewController: UIViewController {
     private enum Constants {
-        enum MockCredentials {
-            static let email = "junior-ios-developer@mailinator.com"
-            static let password = "s4m8AJDbVvX4H8aF"
-            static let projectId = "58b3193b-9f15-4715-a1e3-2e88e375f62b"
-        }
-        enum RequestParameters {
-            static let email = "email"
-            static let password = "password"
-            static let projectId = "project_id"
-            static let url = "https://api-qa.mvpnow.io/v1/sessions"
-        }
         enum Errors {
             static let emptyTextField = "Please, fill all the fields."
             static let unsecurePassword = "Please, create a good password"
@@ -71,11 +58,14 @@ class LogInViewController: UIViewController {
         view.window?.rootViewController = menuViewController
         view.window?.makeKeyAndVisible()
     }
+    
+    private func autoComplete() {
+        emailTextField.text = "junior-ios-developer@mailinator.com"
+        passwordTextField.text = "s4m8AJDbVvX4H8aF"
+    }
         
     @IBAction func signInTapped(_ sender: Any) {
-        emailTextField.text = Constants.MockCredentials.email
-        passwordTextField.text = Constants.MockCredentials.password
-        
+        autoComplete() // for comfort and not entering it manually
         //validate all the fields
         let isValidAllFields = validateFields()
         if !isValidAllFields {
@@ -83,18 +73,14 @@ class LogInViewController: UIViewController {
             errorMessage.alpha = 1
         }
         else {
-            let user = emailTextField.text!
+            let email = emailTextField.text!
             let password = passwordTextField.text!
-            let projectId = Constants.MockCredentials.projectId // where should I get this ID?
        
-            let parameters: Parameters = [Constants.RequestParameters.email: user, Constants.RequestParameters.password: password, Constants.RequestParameters.projectId: projectId]
-            
-            
             // login session
-            NetworkManager().login(url: Constants.RequestParameters.url, credentials: parameters, completion: { result, error in
+            NetworkManager().login(email: email, password: password, completion: { result, error in
                 if (result != nil) {
                     // if the key is saved -> navigating to TabBar
-                    if KeychainManager().saveKey(json: result) {
+                    if KeychainManager().saveAccessToken(result?.object(forKey: "access_token") as! String){
                         self.navigate()
                     }
                 }

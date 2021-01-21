@@ -9,14 +9,17 @@ import Foundation
 import SwiftKeychainWrapper
 
 class KeychainManager {
-    func saveKey(json: NSDictionary?) -> Bool {
-        let saveSuccessful: Bool = KeychainWrapper.standard.set((json?.object(forKey: "access_token") as? String)!,
-                                                                forKey: "access_token")
+    private enum KeyChainConstants {
+        static let keyForToken = "access_token"
+    }
+    
+    func saveAccessToken(_ accessToken: String) -> Bool {
+        let saveSuccessful: Bool = KeychainWrapper.standard.set(accessToken, forKey: KeyChainConstants.keyForToken)
         return saveSuccessful
     }
     
-    func removeKey(keyNameSaved: String) -> Bool {
-        let removeSuccessful: Bool = KeychainWrapper.standard.remove(key: keyNameSaved)
+    func removeAccessToken() -> Bool {
+        let removeSuccessful: Bool = KeychainWrapper.standard.remove(key: KeyChainConstants.keyForToken)
         return removeSuccessful
     }
 }
