@@ -7,5 +7,6 @@ target 'LoginApp' do
 
   # Pods for LoginApp
   pod 'Alamofire', '~> 5.2'
+  pod 'SwiftKeychainWrapper', '~> 3.0.1'
 
 end

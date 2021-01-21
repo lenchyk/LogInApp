@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class LogOutViewController: UIViewController {
 
@@ -13,13 +14,20 @@ class LogOutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    }
+    
+    private func goBack() {
+        let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LogInViewController") as? LogInViewController
+        view.window?.rootViewController = loginViewController
+        view.window?.makeKeyAndVisible()
     }
 
     @IBAction func logOutTapped(_ sender: Any) {
-        // To-Do transition
-        let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LogInViewController") as? LogInViewController
-        self.present(loginViewController!, animated: true, completion: nil)
+        // deleting the key - access_token
+        let removeSuccessful: Bool = KeychainWrapper.standard.remove(key: "access_token")
+        print("removed successfully - \(removeSuccessful)")
+        
+        // going back to login screen
+        goBack()
     }
 }
