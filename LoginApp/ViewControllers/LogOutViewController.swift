@@ -26,7 +26,6 @@ class LogOutViewController: UIViewController {
         // deleting the key - access_token
         let removeSuccessful: Bool = KeychainWrapper.standard.remove(key: "access_token")
         print("removed successfully - \(removeSuccessful)")
-        
         // going back to login screen
         goBack()
     }
