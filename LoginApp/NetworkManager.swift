@@ -10,7 +10,7 @@ import Alamofire
 
 class NetworkManager {
     
-    enum AuthConstants {
+    private enum AuthConstants {
         enum MockCredentials {
             //static let email = "junior-ios-developer@mailinator.com"
             //static let password = "s4m8AJDbVvX4H8aF"
@@ -21,6 +21,7 @@ class NetworkManager {
             static let password = "password"
             static let projectId = "project_id"
         }
+        static let keyForToken = "access_token"
         static let url = "https://api-qa.mvpnow.io/v1/sessions"
     }
     
@@ -32,7 +33,7 @@ class NetworkManager {
             case .success(let data):
                 let json = try! JSONSerialization.jsonObject(with: data!,
                                                              options: []) as? NSDictionary
-                let token = json?.object(forKey: "access_token") as? String
+                let token = json?.object(forKey: AuthConstants.keyForToken) as? String
                 completion(token, nil)
             case .failure(let error):
                 completion(nil, error)
